@@ -61,11 +61,13 @@ function updateRecord(username, recordId) {
 
 // Lambda Handler
 exports.completeToDoItem = metricScope((metrics) => async (event, context) => {
+  console.log(event);
+  
   metrics.setNamespace("TodoApp");
   metrics.putDimensions({ Service: "completeTodo" });
   metrics.setProperty("RequestId", context.requestId);
 
-  if (!isValidRequest(context, event)) {
+  if (!isValidRequest(event)) {
     metrics.putMetric("Error", 1, Unit.Count);
     return response(400, { message: "Error: Invalid request" });
   }
