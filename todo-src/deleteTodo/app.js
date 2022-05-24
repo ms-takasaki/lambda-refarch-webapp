@@ -29,8 +29,6 @@ const response = (statusCode, body, additionalHeaders) => ({
 });
 
 function isValidRequest(event) {
-  console.log(event);
-  console.log(event.pathParameters);
   return (
     event !== null &&
     event.pathParameters !== null &&
@@ -61,6 +59,8 @@ function deleteRecordById(username, recordId) {
 
 // Lambda Handler
 exports.deleteToDoItem = metricScope((metrics) => async (event, context) => {
+  console.log(event);
+  
   metrics.setNamespace("TodoApp");
   metrics.putDimensions({ Service: "deleteTodo" });
   metrics.setProperty("RequestId", context.requestId);
